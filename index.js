@@ -14,7 +14,7 @@ const generateNewCard= (taskData) =>
           <a href="#" class="btn btn-primary">${taskData.taskType}</a>
         </div>
         <div class="card-footer text-muted float-right">
-            <button type="button" class="btn btn-outline-primary float-end">Add Task</button>
+            <button type="button" id=${taskData.id} class="btn btn-outline-primary float-end">Add Task</button>
         </div>
       </div>
   </div>`;
@@ -78,4 +78,45 @@ const editCard= (event)=>{
     taskDescription.setAttribute("contenteditable","true");
     taskType.setAttribute("contenteditable","true");
     submitButton.innerHTML="Save Changes";
+    submitButton.setAttribute("onclick","saveEditChanges.apply(this,arguments)");
+}
+
+const saveEditChanges=(event)=>{
+    event=window.event;
+    const targetId=event.target.id;
+    const tagname=event.target.tagName;
+    let parentElement;
+    if(tagname==="BUTTON"){
+        parentElement=event.target.parentNode.parentNode;
+    }
+    else{
+       parentElement=event.target.parentNode.parentNode.parentNode;
+    }
+    let taskTitle=parentElement.childNodes[5].childNodes[1];
+    let taskDescription=parentElement.childNodes[5].childNodes[3];
+    let taskType=parentElement.childNodes[5].childNodes[5];
+    let submitButton=parentElement.childNodes[7].childNodes[1];
+    
+    
+    const updatedData={
+        taskTitle:taskTitle.innerHTML,
+        taskType:taskType.innerHTML,
+        taskDescription:taskDescription.innerHTML,
+    };
+     
+
+    globalstore=globalstore.map((cardObject)=>{
+        if(cardObject.id===targetId){
+            return{
+                    id:cardObject.id,
+                    imageUrl:cardObject.imageUrl,
+                    taskTitle:updatedData.taskTitle,
+                    taskType:updatedData.taskType,
+                    taskDescription:updatedData.taskDescription,
+            };
+        } 
+        return cardObject;
+    });
+    
+    localStorage.setItem("tasky",JSON.stringify({cards:globalstore}));
 }
