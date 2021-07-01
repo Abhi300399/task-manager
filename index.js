@@ -1,20 +1,23 @@
 const taskContainer=document.querySelector(".task__container");
+const navContainer=document.querySelector("#nav-container");
 let globalstore=[];
 const generateNewCard= (taskData) =>
-    `<div class="col-md-6 col-lg-4" >
+    `<div class="col-md-6 col-lg-4 mb-4" >
     <div class="card text-center">
         <div class="card-header d-flex justify-content-end gap-2">
             <button type="button" class="btn btn-outline-success" id=${taskData.id} onclick="editCard.apply(this,arguments)"><i class="fas fa-pencil-alt" id=${taskData.id} onclick="editCard.apply(this,arguments)"></i></button>
             <button type="button" class="btn btn-outline-danger" id=${taskData.id} onclick="deleteCard.apply(this,arguments)"><i class="far fa-trash-alt" id=${taskData.id} onclick="deleteCard.apply(this,arguments)"></i></button>
         </div>
-        <img src=${taskData.imageUrl} alt="...">
+        <div style="width:100%; height:300px;">
+        <img src=${taskData.imageUrl} alt="..."  style="width:100%; height:100%;">
+        </div>
         <div class="card-body">
           <h5 class="card-title">${taskData.taskTitle}</h5>
           <p class="card-text">${taskData.taskDescription}</p>
           <a href="#" class="btn btn-primary">${taskData.taskType}</a>
         </div>
         <div class="card-footer text-muted float-right">
-            <button type="button" id=${taskData.id} class="btn btn-outline-primary float-end">Open Task</button>
+            <button type="button" id=${taskData.id} onclick="openTask.apply(this,arguments)" class="btn btn-outline-primary float-end">Open Task</button>
         </div>
       </div>
   </div>`;
@@ -124,5 +127,20 @@ const saveEditChanges=(event)=>{
     taskDescription.setAttribute("contenteditable","false");
     taskType.setAttribute("contenteditable","false");
     submitButton.innerHTML="Open task";
-    submitButton.removeAttribute("onclick");
+    submitButton.setAttribute("onclick","openTask.apply(this,arguments)");
+}
+
+const openTask=(event)=>{
+    event=window.event;
+    const targetId=event.target.id; 
+    const taskArray=globalstore.filter((cardObject)=>cardObject.id===targetId);
+    taskArray.map((taskObject)=>{
+        document.getElementById("gettasktitle").value=taskObject.taskTitle;
+        document.getElementById("getimageurl").value=taskObject.imageUrl;
+        document.getElementById("gettaskdescription").value=taskObject.taskDescription;
+        document.getElementById("gettasktype").value=taskObject.taskType;   
+      });
+      var modal=new bootstrap.Modal(document.querySelector("#taskModal"));
+      modal.show();
+
 }

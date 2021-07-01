@@ -22,7 +22,7 @@
     <link rel="stylesheet" href="style.css"/>
 </head>
 <body onload="loadInitialCardData()">
-  <!--Modal-->
+  <!-- Add Task Modal-->
   <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
       <div class="modal-content">
@@ -56,8 +56,38 @@
     </div>
   </div>
 
+  <!-- Open Task Modal-->
+  <div class="modal fade" id="taskModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="getModalLabel">Your Task</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <div class="mb-3">
+            <label for="getimageurl" class="form-label">Image Url</label>
+            <input type="url" class="form-control" id="getimageurl" aria-describedby="Image url" placeholder="https://example.com/hello.jpg" disabled >
+          </div>
+          <div class="mb-3">
+            <label for="gettasktitle" class="form-label">Task Title</label>
+            <input type="text" class="form-control" id="gettasktitle" aria-describedby="Task Title" placeholder="eg: API Integration" disabled>
+          </div>
+          <div class="mb-3">
+            <label for="gettasktype" class="form-label">Task Type</label>
+            <input type="text" class="form-control" id="gettasktype" aria-describedby="Task Type" placeholder="eg: Work" disabled>
+          </div>
+          <div class="mb-3">
+            <label for="gettaskdescription" class="form-label">Task Description</label>
+            <textarea rows="6" class="form-control" id="gettaskdescription" aria-describedby="Task Description" placeholder="Describe your work in detail" disabled></textarea>
+          </div>
+        </div>
+      </div>
+    </div>
+    </div>
+
     <!--Navbar-->
-    <nav class="navbar navbar-expand-md navbar-light bg-light">
+    <nav class="navbar navbar-expand-md navbar-light bg-light" id="nav-container">
         <div class="container-fluid">
           <a class="navbar-brand fw-bold text-primary" href="#">Tasky</a>
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
