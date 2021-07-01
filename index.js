@@ -14,7 +14,7 @@ const generateNewCard= (taskData) =>
           <a href="#" class="btn btn-primary">${taskData.taskType}</a>
         </div>
         <div class="card-footer text-muted float-right">
-            <button type="button" id=${taskData.id} class="btn btn-outline-primary float-end">Add Task</button>
+            <button type="button" id=${taskData.id} class="btn btn-outline-primary float-end">Open Task</button>
         </div>
       </div>
   </div>`;
@@ -119,4 +119,10 @@ const saveEditChanges=(event)=>{
     });
     
     localStorage.setItem("tasky",JSON.stringify({cards:globalstore}));
+
+    taskTitle.setAttribute("contenteditable","false");
+    taskDescription.setAttribute("contenteditable","false");
+    taskType.setAttribute("contenteditable","false");
+    submitButton.innerHTML="Open task";
+    submitButton.removeAttribute("onclick");
 }
